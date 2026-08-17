@@ -66,10 +66,85 @@ data class BeatStep(
     var kick: Boolean = false,
     var snare: Boolean = false,
     var hihat: Boolean = false,
+    var china: Boolean = false,
     var djentChug: Boolean = false,
+    var cyberSynth: Boolean = false,
+    var angelPad: Boolean = false,
+    var subBass: Boolean = false,
     var glitchZap: Boolean = false,
-    var angelPad: Boolean = false
+    
+    // Per-step melodic pitch & accent options
+    var djentPitchIndex: Int = 0,    // index into active scale
+    var synthPitchIndex: Int = 0,    // index into active scale
+    var synthOctave: Int = 0,        // -1, 0, +1
+    var isKickAccented: Boolean = false,
+    var isSnareAccented: Boolean = false,
+    var isSynthAccented: Boolean = false,
+    var isDjentAccented: Boolean = false
 )
+
+enum class TrackCategory(val label: String) {
+    RHYTHM("RHYTHM"),
+    SYNTH_MELODIC("SYNTH & RIFF"),
+    HARMONIC("ATMOSPHERE"),
+    FX("GLITCH & STAB")
+}
+
+enum class TrackChannelId(
+    val title: String,
+    val shortName: String,
+    val category: TrackCategory,
+    val colorHex: Long,
+    val iconEmoji: String
+) {
+    BLAST_KICK("BLAST KICK", "KICK", TrackCategory.RHYTHM, 0xFF39FF14, "🥁"),
+    SNARE_CRACK("SNARE CRACK", "SNARE", TrackCategory.RHYTHM, 0xFFFFD700, "💥"),
+    HI_HAT("HI-HAT SIZZLE", "HI-HAT", TrackCategory.RHYTHM, 0xFF00F5D4, "⚡"),
+    CHINA_CYMBAL("CHINA / CRASH", "CHINA", TrackCategory.RHYTHM, 0xFF00E5FF, "📀"),
+    DJENT_CHUG("8-STR DJENT CHUG", "DJENT", TrackCategory.SYNTH_MELODIC, 0xFFFF1744, "🎸"),
+    CYBER_SYNTH("ACID CYBER SYNTH", "SYNTH", TrackCategory.SYNTH_MELODIC, 0xFF9D00FF, "🎹"),
+    ANGEL_PAD("ANGELIC CHOIR", "CHOIR", TrackCategory.HARMONIC, 0xFFB026FF, "🪽"),
+    SUB_BASS("808 SUB SLAM", "SUB 808", TrackCategory.HARMONIC, 0xFF00FFFF, "🔊"),
+    GLITCH_FX("GLITCH / BLEGH", "FX ZAP", TrackCategory.FX, 0xFFFF0055, "💀")
+}
+
+enum class MetalScale(
+    val displayName: String,
+    val shortName: String,
+    val semitones: List<Int>,
+    val noteNames: List<String>
+) {
+    PHRYGIAN_DOMINANT(
+        "Phrygian Dominant",
+        "PHRYG DOM",
+        listOf(0, 1, 4, 5, 7, 8, 10, 12),
+        listOf("A", "A#", "C#", "D", "E", "F", "G", "A'")
+    ),
+    LOCRIAN_HEAVY(
+        "Locrian Metal",
+        "LOCRIAN",
+        listOf(0, 1, 3, 5, 6, 8, 10, 12),
+        listOf("A", "A#", "C", "D", "D#", "F", "G", "A'")
+    ),
+    HARMONIC_MINOR(
+        "Harmonic Minor",
+        "HARM MIN",
+        listOf(0, 2, 3, 5, 7, 8, 11, 12),
+        listOf("A", "B", "C", "D", "E", "F", "G#", "A'")
+    ),
+    CYBER_DORIAN(
+        "Cyberpunk Dorian",
+        "DORIAN",
+        listOf(0, 2, 3, 5, 7, 9, 10, 12),
+        listOf("A", "B", "C", "D", "E", "F#", "G", "A'")
+    ),
+    DARK_BLUES(
+        "Sludge Doom Blues",
+        "SLUDGE",
+        listOf(0, 3, 5, 6, 7, 10, 12),
+        listOf("A", "C", "D", "D#", "E", "G", "A'")
+    )
+}
 
 data class DspSettings(
     var distortionGain: Float = 0.75f,
