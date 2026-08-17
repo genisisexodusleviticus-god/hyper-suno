@@ -1,0 +1,8 @@
+{
+  "name": "Remix Suno Hyper",
+  "description": "Extreme Heavy Metal \u0026 Avant-Garde Audiovisual Workstation with Suno 5.5 AI lyrics, beats, real multi-track synth, glitch effects, and cinematic video generator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
